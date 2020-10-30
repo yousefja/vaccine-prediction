@@ -6,6 +6,7 @@ The goal of this project is to (1) attempt to build a model that can predict if 
 
 The hope in performing this analysis is that this information can be useful in aiding future Covid-19 vaccine efforts. If not, the project itself speaks to the kind of work I'd like to do/ efforts I would like to contribute to.
 
+
 **Navigating This Repository**
 
 In the **Visualizations** folder are two files: a pdf and PowerBI file (same content, different extensions) offering data viz and analysis on the best selected features from my modelling/analysis in python. 
