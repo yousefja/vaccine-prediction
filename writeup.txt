@@ -1,0 +1,117 @@
+Please note: this project is ongoing, so this write-up summarizes my findings
+only thus far.
+
+---- Modelling and Analysis in Python ----
+
+In my modeling and analysis of the data, I used a MultiOutput Classifier,
+with a Stochastic Gradient Descent Classifier as the base estimator, to 
+classify a validation set from the overall dataset. This meant predicting 
+if a person received their seasonal flu vaccine and H1N1 vaccine (multi label).
+
+The best performance my model attained attained was as follows (broken down 
+between H1N1 and seasonal flu prediction respectively):
+		
+	Accuracy_seas : 80%
+	Accuracy_h1n1 : 74%
+
+	f1_score_seas : 0.74
+	f1_score_h1n1 : 0.51
+	
+	roc_auc_seas  : 0.74
+	roc_auc_h1n1  : 0.71
+
+The best performing set of features, chosen by embedded Random Forest selection,
+were: 
+ 
+ 'h1n1_concern',
+ 'doctor_recc_h1n1',
+ 'doctor_recc_seasonal',
+ 'health_insurance',
+ 'opinion_h1n1_vacc_effective',
+ 'opinion_h1n1_risk',
+ 'opinion_h1n1_sick_from_vacc',
+ 'opinion_seas_vacc_effective',
+ 'opinion_seas_risk',
+ 'opinion_seas_sick_from_vacc',
+ 'age_group',
+ 'education',
+ 'race_White'
+
+Although the 'race_White' feature made the cut for best features, I found that 
+the data was composed primarily of white respondents, which may affect model 
+performance adversely when classifying future respondents who aren't white 
+(though I would have to test this to be sure). This doesn't represent sampling
+ bias, however, as the distribution of race in the dataset was actually closely 
+representative of race percentages in the US, at least according to wikipedia 
+(https://en.wikipedia.org/wiki/Race_and_ethnicity_in_the_United_States). 
+
+I also found that the model performed slightly worse for h1n1 than seasonal prediction.
+In later data analysis, I found that one of the most important, possibly the most
+important, feature for predicting h1n1 vaccination was actually seasonal vaccination.
+Therefore, I'd like to go back and work on predicting seasonal vaccines first, then
+using this information for h1n1 predictions. 
+
+
+
+---- Data Visualization and Analysis in PowerBI ----
+
+
+Page 1 / Dashboard 1
+
+In this dashboard, I am showing some basic stats calculated from the dataset.
+More specifically, I show the percentage of the sample that received both
+their H1N1 and Seasonal Flu vaccines. Perhaps more importantly, I show that
+that those who received their Seasonal Flu vaccine were significantly more 
+likely (about 5x) to get their H1N1 vaccine. Its hard to say if this would
+generalize to the Covid-19 vaccine, but it is very promising to see that
+these two facts were so highly correlated.
+
+
+Page 2 / Dashboard 2
+
+In this visualization, I essentially shine the spotlight on the influence of 
+doctors, specifically in offering recommendations to patients. The reason for 
+this is that doctor recommendations showed a very high correlation to
+the h1n1 and seasonal vaccine columns (in both Pearson correlation analysis 
+from Python analysis as well as PowerBI 'Key Influencers' chart). I am showing
+here that respondents were much more likely to get both vaccines given they
+had a doctor recommendation. We can also see from the charts that there is 
+a positive correlation between doctor recommendations and perceived risk of
+both h1n1 and the seasonal flu. This is especially important in considering
+the Covid-19 pandemic, where we have seen a decline in perceived risk of the 
+virus, at least among younger age groups. Given how important a role doctors
+play, however, we find that from the survey the majority of respondents 
+reported having no doctor recommendation.
+
+
+Page 3 / Dashboard 3
+
+The final visualization is a side-by-side breakdown of feature/factor influence
+for h1n1 and seasonal flu vaccines. The point of this dashboard is to explore 
+which features (among the best selected features from the Python analysis) are
+not only most highly correlated, but have the greatest influence on vaccine
+predictions being true.  
+
+
+----------
+CONCLUSION 
+----------
+
+Overall, I found that the biggest predictors of vaccination (for both vaccines)
+were doctor recommendations, perceived effectiveness of the vaccine, and perceived
+risk from the virus' themselves. Although there are more factors at play, I see
+these as a great starting point for extending this research to Covid-19. First
+and foremost, the data suggests that people trust the opinion of healthcare
+professionals. Therefore, video chats, phone calls, and emails from doctors 
+encouraging their patients to not only be vaccinated, but explaining the 
+risk of the virus and their trust in the vaccine could potentially go a long way.
+Information surrounding the Covid-19 pandemic has entered the realm of politics 
+as well as social media, making it suseptible to misinformation and emotionally
+charged statements. In many ways, this makes dealing with Covid-19 alot more 
+complex than the data from this project may be able to explain. However, I 
+find this to be a very promising approach to future efforts to encourage
+vaccination, as well as a great launch point for future research in this field.
+
+
+
+ 
